@@ -1,113 +1,46 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NPUST 澎科大 - 長者健康評估系統【澎邱完整版】</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .tab-btn.active { border-bottom: 4px solid #1e40af; color: #1e40af; font-weight: bold; }
-        .theme-btn.active { background-color: #dbeafe; border-color: #1e40af; color: #1e40af; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        input[type="number"] { -moz-appearance: textfield; }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-900 pb-20">
-
-<header class="bg-blue-800 text-white p-5 sticky top-0 z-50 shadow-md no-print text-center">
-    <h1 class="text-xl font-bold italic">NPUST 長者全人健康評估 <span class="text-xs bg-yellow-400 text-blue-900 px-2 py-0.5 rounded ml-1 font-bold">澎邱完整版</span></h1>
-</header>
-
-<nav class="flex overflow-x-auto bg-white border-b sticky top-[72px] z-40 no-print no-scrollbar shadow-sm">
-    <button onclick="showTab('base')" id="btn-base" class="tab-btn min-w-[90px] p-4 text-xs active">1.基本資料</button>
-    <button onclick="showTab('cog')" id="btn-cog" class="tab-btn min-w-[90px] p-4 text-xs">2.認知功能</button>
-    <button onclick="showTab('phy')" id="btn-phy" class="tab-btn min-w-[90px] p-4 text-xs">3.肌力表現</button>
-    <button onclick="showTab('life')" id="btn-life" class="tab-btn min-w-[90px] p-4 text-xs">4.生活營養</button>
-    <button onclick="showTab('psy')" id="btn-psy" class="tab-btn min-w-[90px] p-4 text-xs">5.心理社會</button>
-    <button onclick="showTab('result')" id="btn-result" class="tab-btn min-w-[90px] p-4 text-xs text-blue-700 font-black">6.報表結案</button>
-</nav>
-
-<main class="container mx-auto px-4 py-6 max-w-2xl">
-    <section id="tab-result" class="tab-content space-y-6">
-        <div class="no-print p-6 bg-blue-50 rounded-3xl border-2 border-blue-200 text-center space-y-4">
-            <h3 class="font-black text-blue-900 text-lg">評估即將完成</h3>
-            <button onclick="generateFinalReport()" class="w-full bg-blue-700 text-white font-black py-4 rounded-2xl shadow-xl hover:scale-[1.02] transition active:scale-95">第一步：產生旗艦版報表</button>
-            <button id="saveBtn" onclick="submitToGoogle()" class="hidden w-full bg-green-600 text-white font-black py-4 rounded-2xl shadow-xl hover:scale-[1.02] transition">第二步：上傳資料至試算表</button>
-        </div>
-        <div id="final-report" class="hidden bg-white p-8 rounded-[40px] border-t-[12px] border-blue-600 shadow-2xl">
-            <h2 class="text-3xl font-black text-blue-900 border-b-2 pb-6 mb-8 text-center italic">全人健康評估報告</h2>
-            <div class="grid grid-cols-2 gap-4 mb-10 text-center bg-slate-50 p-6 rounded-3xl border border-slate-100 font-bold">
-                <div><p class="text-xs text-slate-400 font-bold uppercase tracking-widest">受試姓名</p><p id="rn" class="text-xl text-slate-800 mt-1">--</p></div>
-                <div><p class="text-xs text-slate-400 font-bold uppercase tracking-widest">加權總分</p><p id="rt" class="text-3xl text-blue-600 mt-1">--</p></div>
-            </div>
-            <div id="score_bars" class="space-y-6 mb-10 px-2"></div>
-            <div class="bg-blue-800 text-white p-4 rounded-2xl text-center shadow-lg"><p id="rs" class="text-xl font-black">--</p></div>
-        </div>
-    </section>
-</main>
-
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbz4Mgv3fGd56kUr4IrckpUDcbFNFUEcG3Ef7eUDDjNuulFaBLLRo4mdr28TNGyeaTqZOw/exec';
+async function submitToGoogle() {
+    const btn = document.getElementById('saveBtn');
+    const nameInput = document.getElementById('b_name').value;
+    if(!nameInput) return alert("請填寫姓名！");
     
-    // ... (常模 PHY_NORMS 資料與 showTab, setTheme, judgeAllPhy, generateFinalReport 保持原樣) ...
+    btn.disabled = true;
+    btn.innerText = "📍 正在強力上傳...";
 
-    async function submitToGoogle() {
-        const btn = document.getElementById('saveBtn');
-        const nameVal = document.getElementById('b_name').value;
+    // 重新封裝資料為參數格式
+    const m = Array.from({length:5}, (_,i) => parseInt(document.getElementById('dm_'+i)?.value || 0)).reduce((a,b)=>a+b, 0);
+    const sc = (m >= 15 ? 3 : (m >= 10 ? 2 : (m >= 5 ? 1 : 0))) + parseInt(document.getElementById('c_time').value);
+    const getV = (id) => (document.getElementById(id).innerText.match(/\d/) || [0])[0];
+    
+    // 建立參數包
+    const params = new URLSearchParams();
+    params.append('name', nameInput);
+    params.append('gender', document.getElementById('b_gender').value);
+    params.append('age', document.getElementById('b_age').value);
+    params.append('weighted_total', document.getElementById('rt').innerText);
+    params.append('cognition_score', sc);
+    params.append('physical_score', parseInt(getV('r_chair')) + parseInt(getV('r_arm')) + parseInt(getV('s_gait')));
+    params.append('life_score', document.getElementById('l_med').value);
+    params.append('nutrition_score', document.getElementById('n_veg').value);
+    params.append('social_score', parseInt(document.getElementById('ps_1').value) + parseInt(document.getElementById('ps_2').value) + parseInt(document.getElementById('ps_3').value));
+    params.append('chair_count', document.getElementById('p_chair').value);
+    params.append('arm_count', document.getElementById('p_arm').value);
+    params.append('gait_time', document.getElementById('p_gait').value);
+    params.append('status', document.getElementById('rs').innerText);
+
+    try {
+        // 使用 URLSearchParams 傳送，這是對 Google Sheets 最穩定的方法
+        await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString()
+        });
         
-        if(!nameVal) {
-            alert("⚠️ 請填寫受試者姓名！");
-            showTab('base');
-            return;
-        }
-
-        btn.disabled = true;
-        btn.innerText = "📍 資料同步中...";
-
-        // 重新計算傳輸數值
-        let m = 0; for(let i=0; i<5; i++) { m += parseInt(document.getElementById('dm_'+i)?.value || 0); }
-        const s_cog = (m >= 15 ? 3 : (m >= 10 ? 2 : (m >= 5 ? 1 : 0))) + parseInt(document.getElementById('c_time').value);
-        const getV = (id) => (document.getElementById(id).innerText.match(/\d/) || [0])[0];
-        const s_phy = parseInt(getV('r_chair')) + parseInt(getV('r_arm')) + parseInt(getV('s_gait'));
-
-        // 使用 URLSearchParams 封裝資料，確保姓名(name)欄位正確傳輸
-        const params = new URLSearchParams();
-        params.append('name', nameVal);
-        params.append('gender', document.getElementById('b_gender').value);
-        params.append('age', document.getElementById('b_age').value);
-        params.append('weighted_total', document.getElementById('rt').innerText);
-        params.append('cognition_score', s_cog);
-        params.append('physical_score', s_phy);
-        params.append('life_score', document.getElementById('l_med').value);
-        params.append('nutrition_score', document.getElementById('n_veg').value);
-        params.append('social_score', parseInt(document.getElementById('ps_1').value) + parseInt(document.getElementById('ps_2').value) + parseInt(document.getElementById('ps_3').value));
-        params.append('chair_count', document.getElementById('p_chair').value);
-        params.append('arm_count', document.getElementById('p_arm').value);
-        params.append('gait_time', document.getElementById('p_gait').value);
-        params.append('status', document.getElementById('rs').innerText);
-
-        try {
-            await fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            });
-            alert("✅ 澎邱完整版：資料已成功上傳至試算表！");
-            btn.innerText = "儲存完畢";
-            btn.classList.replace('bg-green-600', 'bg-slate-400');
-        } catch(e) {
-            alert("❌ 連線出錯，請確認網路或 Script 網址。");
-            btn.disabled = false;
-            btn.innerText = "重新嘗試儲存";
-        }
+        alert("✅ 澎邱完整版：資料已成功寫入試算表！");
+        btn.innerText = "已存檔";
+    } catch(e) {
+        alert("連線失敗，請確認 Script 網址是否為最新版本。");
+        btn.disabled = false;
+        btn.innerText = "重新儲存";
     }
-
-    // 務必保留原有的輔助函式...
-</script>
-</body>
-</html>
+}
