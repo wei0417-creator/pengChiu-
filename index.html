@@ -910,7 +910,7 @@
 
     // 主題字卡渲染維持
     function setTheme(t) {        
-        const themes = { 'A':['鼻子','石頭','學校','可愛','紅色'], 'B':['臉孔','玻璃','醫院','善良','藍色'], 'C':['手','塑膠','公園','大方','綠色'] };        
+        const themes = { 'A':['鼻子','石頭','紅色'], 'B':['臉孔','玻璃','藍色'], 'C':['手','塑膠','綠色'] };        
         document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));        
         document.getElementById('t' + t).classList.add('active');        
         const d = document.getElementById('word-display');        
