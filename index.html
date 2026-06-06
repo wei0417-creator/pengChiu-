@@ -307,17 +307,17 @@
                     <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-scale-balanced text-blue-600"></i> 1. 平衡測試 (每種站法目標10秒)[cite: 1]</h3>
                     <div class="space-y-3 text-xs font-bold">
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
-                            <div>A. 並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Side-by-side stand)[cite: 1]</span></div>
+                            <div>A. 並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Side-by-side stand)</span></div>
                             <div class="flex items-center gap-2"><select id="sppb_bal_a" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="1">保持 10 秒 (1分)[cite: 1]</option><option value="0">少於 10 秒 (0分)[cite: 1]</option></select></div>
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
-                            <div>B. 半並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Semi-tandem stand)[cite: 1]</span></div>
+                            <div>B. 半並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Semi-tandem stand)</span></div>
                             <div class="flex items-center gap-2">
                                 <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-1 rounded">基準站立核定 (固定 1 分)</span>
                             </div>
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
-                            <div>C. 直線站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Tandem stand)[cite: 1]</span></div>
+                            <div>C. 直線站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Tandem stand)</span></div>
                             <div class="flex items-center gap-2"><select id="sppb_bal_c" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="2">保持 10 秒 (2分)[cite: 1]</option><option value="1">保持 3 ~ 9.99 秒 (1分)[cite: 1]</option><option value="0">保持 &lt; 3 秒 (0分)[cite: 1]</option></select></div>
                         </div>
                     </div>
@@ -325,10 +325,10 @@
 
                 <div class="p-4 bg-slate-50 rounded-2xl border space-y-3">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-stopwatch text-green-600"></i> 2. 步行速度測試 (請選擇距離施測)[cite: 1]</h3>
+                        <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-stopwatch text-green-600"></i> 2. 步行速度測試 (請選擇距離施測)</h3>
                         <div class="flex gap-4 text-xs font-black">
-                            <label class="cursor-pointer flex items-center gap-1 text-green-700"><input type="radio" name="sppb_gait_dist" value="4" checked onchange="judgeAllPhy()" class="w-4 h-4"> 四公尺[cite: 1]</label>
-                            <label class="cursor-pointer flex items-center gap-1 text-green-700"><input type="radio" name="sppb_gait_dist" value="3" onchange="judgeAllPhy()" class="w-4 h-4"> 三公尺[cite: 1]</label>
+                            <label class="cursor-pointer flex items-center gap-1 text-green-700"><input type="radio" name="sppb_gait_dist" value="4" checked onchange="judgeAllPhy()" class="w-4 h-4"> 四公尺</label>
+                            <label class="cursor-pointer flex items-center gap-1 text-green-700"><input type="radio" name="sppb_gait_dist" value="3" onchange="judgeAllPhy()" class="w-4 h-4"> 三公尺</label>
                         </div>
                     </div>
                     <div class="flex items-center gap-4">
@@ -341,7 +341,7 @@
                 </div>
 
                 <div class="p-4 bg-slate-50 rounded-2xl border space-y-3">
-                    <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-chair text-purple-600"></i> 3. 椅子起站測試 (連續起立坐下五次的時間)[cite: 1]</h3>
+                    <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-chair text-purple-600"></i> 3. 椅子起站測試 (連續起立坐下五次的時間)</h3>
                     <div class="flex items-center gap-4">
                         <div class="flex-1 relative">
                             <input type="number" id="sppb_chair_time" step="0.01" oninput="judgeAllPhy()" class="w-full p-3 border rounded-xl text-xl font-black text-purple-700 bg-white pr-10" placeholder="0.00">
@@ -484,7 +484,7 @@
 </div>
 
 <!-- 置放隱藏 ICOPE 步行中轉站標籤 -->
-<span id="s_gait" class="hidden">0 分</span>
+<span id="s_gait_backup" class="hidden">0 分</span>
 
 <!-- ================= 💻 核心驅動引擎 ================= -->
 <script>    
@@ -505,6 +505,7 @@
         "6": ["女兒", "天堂", "高山"]
     };
 
+    // 🎯 百分之百導正完畢的 GDS-15 標準資料庫（無中文錯字阻斷）
     const GDS_QUESTIONS = [
         { q: "1. 基本上，您對您的生活滿意嗎？<br><span class='text-slate-400 text-xs'>(台：基本上，您對您的生活有滿意麼？)</span>", key: "否" },
         { q: "2. 您是否減少附近的活動和興趣的事？<br><span class='text-slate-400 text-xs'>(台：您有減少真多的活動和趣味的事麼？)</span>", key: "是" },
