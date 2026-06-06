@@ -232,8 +232,8 @@
         <section id="tab-cog" class="tab-content space-y-4">        
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">            
                 <div class="flex justify-between items-center border-b pb-2">
-                    <h2 class="font-black text-blue-900 text-base"><i class="fa-solid fa-brain mr-2 text-blue-700"></i>Mini-Cog™ 失智症篩檢量表[cite: 2]</h2>
-                    <span class="text-xs font-bold text-slate-400">S. Borson 版權所有[cite: 2]</span>
+                    <h2 class="font-black text-blue-900 text-base"><i class="fa-solid fa-brain mr-2 text-blue-700"></i>Mini-Cog™ 失智症篩檢量表</h2>
+                    <span class="text-xs font-bold text-slate-400">S. Borson 版權所有</span>
                 </div>            
                 
                 <div>
@@ -249,31 +249,31 @@
                 </div>
 
                 <div class="p-3.5 bg-blue-50/60 text-slate-800 rounded-xl border border-blue-100 space-y-2 text-xs">
-                    <p class="font-black text-blue-900"><i class="fa-solid fa-circle-info mr-1"></i>步驟 1：三個名詞記憶[cite: 2]</p>
-                    <p class="italic text-slate-600 font-medium leading-relaxed">請指導員看著長者說：「請仔細聽清楚，我等一下會說出三個名詞，請馬上複誦給我聽，然後儘量背下來。」[cite: 2]</p>
+                    <p class="font-black text-blue-900"><i class="fa-solid fa-circle-info mr-1"></i>步驟 1：三個名詞記憶</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請指導員看著長者說：「請仔細聽清楚，我等一下會說出三個名詞，請馬上複誦給我聽，然後儘量背下來。」</p>
                     <div id="mc-word-display" class="p-3 bg-white text-blue-800 text-sm text-center rounded-xl border border-blue-200 hidden font-black tracking-widest italic"></div>
                 </div>
 
                 <div class="p-3.5 bg-purple-50/60 text-slate-800 rounded-xl border border-purple-100 space-y-2 text-xs">
-                    <p class="font-black text-purple-900"><i class="fa-solid fa-clock mr-1"></i>步驟 2：畫時鐘測驗 (CDT)[cite: 2]</p>
-                    <p class="italic text-slate-600 font-medium leading-relaxed">請引導長者在紙上畫出時鐘，包含數字，並將指針設在 <strong class="text-purple-700 font-black">11:10</strong>。[cite: 2]</p>
+                    <p class="font-black text-purple-900"><i class="fa-solid fa-clock mr-1"></i>步驟 2：畫時鐘測驗 (CDT)</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請引導長者在紙上畫出時鐘，包含數字，並將指針設在 <strong class="text-purple-700 font-black">11:10</strong>。</p>
                     <div class="mt-2 flex items-center justify-between bg-white p-2.5 rounded-xl border">
-                        <span class="font-bold text-slate-700">畫時鐘評分標準判定：[cite: 2]</span>
+                        <span class="font-bold text-slate-700">畫時鐘評分標準判定：</span>
                         <select id="mc_clock_score_select" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs font-black text-purple-700">
-                            <option value="2">正常時鐘 (2分) - 數字與方位針指向均正確[cite: 2]</option>
-                            <option value="0">異常時鐘 (0分) - 有漏字、錯位或畫不出[cite: 2]</option>
+                            <option value="2">正常時鐘 (2分) - 數字與方位針指向均正確</option>
+                            <option value="0">異常時鐘 (0分) - 有漏字、錯位或畫不出</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="p-3.5 bg-emerald-50/60 text-slate-800 rounded-xl border border-emerald-100 space-y-2 text-xs">
-                    <p class="font-black text-emerald-900"><i class="fa-solid fa-quote-left mr-1"></i>步驟 3：三個名詞回憶[cite: 2]</p>
-                    <p class="italic text-slate-600 font-medium leading-relaxed">請對長者說：「我要你背下來的三個名詞是什麼？」依據無提示正確答出數量勾選：[cite: 2]</p>
+                    <p class="font-black text-emerald-900"><i class="fa-solid fa-quote-left mr-1"></i>步驟 3：三個名詞回憶</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請對長者說：「我要你背下來的三個名詞是什麼？」依據無提示正確答出數量勾選：</p>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center pt-1">
-                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="3" checked onchange="judgeAllPhy()"> 答對 3 詞 (3分)[cite: 2]</label>
-                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="2" onchange="judgeAllPhy()"> 答對 2 詞 (2分)[cite: 2]</label>
-                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="1" onchange="judgeAllPhy()"> 答對 1 詞 (1分)[cite: 2]</label>
-                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="0" onchange="judgeAllPhy()"> 答對 0 詞 (0分)[cite: 2]</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="3" checked onchange="judgeAllPhy()"> 答對 3 詞 (3分)</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="2" onchange="judgeAllPhy()"> 答對 2 詞 (2分)</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="1" onchange="judgeAllPhy()"> 答對 1 詞 (1分)</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="0" onchange="judgeAllPhy()"> 答對 0 詞 (0分)</label>
                     </div>
                 </div>
             </div>    
@@ -505,7 +505,6 @@
         "6": ["女兒", "天堂", "高山"]
     };
 
-    // 🎯 精確導正無文本外洩的 GDS-15 題庫
     const GDS_QUESTIONS = [
         { q: "1. 基本上，您對您的生活滿意嗎？<br><span class='text-slate-400 text-xs'>(台：基本上，您對您的生活有滿意麼？)</span>", key: "否" },
         { q: "2. 您是否減少附近的活動和興趣的事？<br><span class='text-slate-400 text-xs'>(台：您有減少真多的活動和趣味的事麼？)</span>", key: "是" },
@@ -514,13 +513,13 @@
         { q: "5. 您是否大部份時間精神都很好？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間精神攏真好？)</span>", key: "否" },
         { q: "6. 您是否會常常害怕將有不幸的事情發生在您身上了嗎？<br><span class='text-slate-400 text-xs'>(台：您會驚說您會遇著不幸的事情麼？)</span>", key: "是" },
         { q: "7. 您是否大部份的時間都感到快樂？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間攏感覺快樂？)</span>", key: "否" },
-        { q: "8. 您是否常常感到無論做什麼事，都沒有用？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺不管做什麼事，攏無路用麼？)</span>", key: "開" },
+        { q: "8. 您是否常常感到無論做什麼事，都沒有用？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺不管做什麼事，攏無路用麼？)</span>", key: "是" },
         { q: "9. 您是否比較喜歡待在家裡而較不喜歡外出及不喜歡做新的事？<br><span class='text-slate-400 text-xs'>(台：您會較愛待在厝裡，較不愛出外，亦不愛做未曾做過的事情麼？)</span>", key: "是" },
         { q: "10. 您是否覺得現在有記憶力不好的困擾？<br><span class='text-slate-400 text-xs'>(台：您會感覺您比大部份的人有卡多記智不好的問題麼？)</span>", key: "是" },
         { q: "11. 您是否覺得「現在還能活著」是很好的事？<br><span class='text-slate-400 text-xs'>(台：您會感覺「現在還能活著」真好？)</span>", key: "否" },
         { q: "12. 您是否覺得您現在活得真沒有價值？<br><span class='text-slate-400 text-xs'>(台：您會感覺您現在活得真無價值麼？)</span>", key: "是" },
         { q: "13. 您是否覺得精力很充沛？<br><span class='text-slate-400 text-xs'>(台：您會感覺真有氣力麼？)</span>", key: "否" },
-        { q: "14. 您是否感覺您現在的情況是沒有希望的？<br><span class='text-slate-400 text-xs'>(台：您會感覺您的情形是沒什麼希望的麼？)</span>", key: "是" }, // ➔ 這裡已百分之百校正！
+        { q: "14. 您是否感覺您現在的情況是沒有希望的？<br><span class='text-slate-400 text-xs'>(台：您會感覺您的情形是沒什麼希望的麼？)</span>", key: "是" },
         { q: "15. 您是否覺得大部份的人都比您更幸福？<br><span class='text-slate-400 text-xs'>(台：您會感覺大部份的人攏比您卡好命麼？)</span>", key: "是" }
     ];
 
