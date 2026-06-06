@@ -228,7 +228,7 @@
             </div>
         </section>
         
-        <!-- 2. 認知評估 -->
+        <!-- 2. 認知評估（Mini-Cog™） -->
         <section id="tab-cog" class="tab-content space-y-4">        
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">            
                 <div class="flex justify-between items-center border-b pb-2">
@@ -256,19 +256,19 @@
 
                 <div class="p-3.5 bg-purple-50/60 text-slate-800 rounded-xl border border-purple-100 space-y-2 text-xs">
                     <p class="font-black text-purple-900"><i class="fa-solid fa-clock mr-1"></i>步驟 2：畫時鐘測驗 (CDT)[cite: 2]</p>
-                    <p class="italic text-slate-600 font-medium leading-relaxed">請引導長者在紙上畫出時鐘，包含數字，並將指針設在 <strong class="text-purple-700 font-black">11:10</strong>。[cite: 2]</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請引引導長者在紙上畫出時鐘，包含數字，並將指針設在 <strong class="text-purple-700 font-black">11:10</strong>。[cite: 2]</p>
                     <div class="mt-2 flex items-center justify-between bg-white p-2.5 rounded-xl border">
                         <span class="font-bold text-slate-700">畫時鐘評分標準判定：[cite: 2]</span>
                         <select id="mc_clock_score_select" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs font-black text-purple-700">
-                            <option value="2">正常時鐘 (2分) - 數字對方位的順序均正確[cite: 2]</option>
-                            <option value="0">異常時鐘 (0分) - 漏字、順序錯、或指針偏離[cite: 2]</option>
+                            <option value="2">正常時鐘 (2分) - 數字與方位針指向均正確[cite: 2]</option>
+                            <option value="0">異常時鐘 (0分) - 有漏字、錯位或畫不出[cite: 2]</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="p-3.5 bg-emerald-50/60 text-slate-800 rounded-xl border border-emerald-100 space-y-2 text-xs">
                     <p class="font-black text-emerald-900"><i class="fa-solid fa-quote-left mr-1"></i>步驟 3：三個名詞回憶[cite: 2]</p>
-                    <p class="italic text-slate-600 font-medium leading-relaxed">請對長者說：「我要你背下來的三個名詞是什麼？」依據正確答出數量（不需提示）勾選：[cite: 2]</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請對長者說：「我要你背下來的三個名詞是什麼？」依據無提示正確答出數量勾選：[cite: 2]</p>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center pt-1">
                         <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="3" checked onchange="judgeAllPhy()"> 答對 3 詞 (3分)[cite: 2]</label>
                         <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="2" onchange="judgeAllPhy()"> 答對 2 詞 (2分)[cite: 2]</label>
@@ -279,7 +279,7 @@
             </div>    
         </section>
         
-        <!-- 3. 肌力表現 -->
+        <!-- 3. 肌力表現與 SPPB -->
         <section id="tab-phy" class="tab-content space-y-6">        
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                 <div class="flex items-center gap-1 border-b pb-2"><span class="text-blue-800 text-lg"><i class="fa-solid fa-dumbbell"></i></span><h2 class="font-black text-blue-900 text-base"> 基礎功能常模測試</h2></div>
@@ -313,7 +313,7 @@
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>B. 半並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Semi-tandem stand)</span></div>
                             <div class="flex items-center gap-2">
-                                <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-1 rounded">符合前測基準 (固定計 1 分)</span>
+                                <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-1 rounded">基準站立核定 (固定 1 分)</span>
                             </div>
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
@@ -483,7 +483,10 @@
     </main>
 </div>
 
-<!-- ================= 💻 核心驅動引擎 ================= -->
+<!-- 置放隱藏 ICOPE 步行中轉站標籤 -->
+<span id="s_gait" class="hidden">0 分</span>
+
+<!-- ================= 💻 核心驅動引擎（單一 Script 區塊合併完全版） ================= -->
 <script>    
     const scriptURL = 'https://script.google.com/macros/s/AKfycbz4Mgv3fGd56kUr4IrckpUDcbFNFUEcG3Ef7eUDDjNuulFaBLLRo4mdr28TNGyeaTqZOw/exec';    
     
@@ -502,9 +505,33 @@
         "6": ["女兒", "天堂", "高山"]
     };
 
+    const GDS_QUESTIONS = [
+        { q: "1. 基本上，您對您的生活滿意嗎？<br><span class='text-slate-400 text-xs'>(台：基本上，您對您的生活有滿意麼？)</span>", key: "否" },
+        { q: "2. 您是否減少附近的活動和興趣的事？<br><span class='text-slate-400 text-xs'>(台：您有減少真多的活動和趣味的事麼？)</span>", key: "是" },
+        { q: "3. 您是否覺得您的生活很空虛？<br><span class='text-slate-400 text-xs'>(台：您會感覺您的生活真實空虛麼？)</span>", key: "是" },
+        { q: "4. 您是否常常感到厭煩？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺真煩麼？)</span>", key: "是" },
+        { q: "5. 您是否大部份時間精神都很好？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間精神攏真好？)</span>", key: "否" },
+        { q: "6. 您是否會常常害怕將有不幸的事情發生在您身上了嗎？<br><span class='text-slate-400 text-xs'>(台：您會驚說您會遇著不幸的事情麼？)</span>", key: "是" },
+        { q: "7. 您是否大部份的時間都感到快樂？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間攏感覺快樂？)</span>", key: "否" },
+        { q: "8. 您是否常常感到無論做什麼事，都沒有用？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺不管做什麼事，攏無路用麼？)</span>", key: "是" },
+        { q: "9. 您是否比較喜歡待在家裡而較不喜歡外出及不喜歡做新的事？<br><span class='text-slate-400 text-xs'>(台：您會較愛待在厝裡，較不愛出外，亦不愛做未曾做過的事情麼？)</span>", key: "是" },
+        { q: "10. 您是否覺得現在有記憶力不好的困擾？<br><span class='text-slate-400 text-xs'>(台：您會感覺您比大部份的人有卡多記智不好的問題麼？)</span>", key: "是" },
+        { q: "11. 您是否覺得「現在還能活著」是很好的事？<br><span class='text-slate-400 text-xs'>(台：您會感覺「現在還能活著」真好？)</span>", key: "否" },
+        { q: "12. 您是否覺得您現在活得真沒有價值？<br><span class='text-slate-400 text-xs'>(台：您會感覺您現在活得真無價值麼？)</span>", key: "是" },
+        { q: "13. 您是否覺得精力很充沛？<br><span class='text-slate-400 text-xs'>(台：您會感覺真有氣力麼？)</span>", key: "否" },
+        { q: "14. 您是否感覺您現在的情況是沒有希望的？<br><span class='text-slate-400 text-xs'>(台：您會感覺您的情形是沒什麼希望的麼？)</span>", key: "是" },
+        { q: "15. 您是否覺得大部份的人都比您更幸福？<br><span class='text-slate-400 text-xs'>(台：您會感覺大部份的人攏比您卡好命麼？)</span>", key: "是" }
+    ];
+
+    const PHY_NORMS = {        
+        chair: { '1': { '65':[13,15,18,22],'70':[12,14,17,21],'75':[11,12,16,19],'80':[10,12,15,17],'85':[8,10,13,16],'90':[6,8,11,14] }, '2': { '65':[11,14,16,20],'70':[10,13,15,19],'75':[9,12,14,18],'80':[8,11,13,16],'85':[3,9,12,15],'90':[0,6,11,14] } },        
+        arm: { '1': { '65':[16,17,21,25],'70':[15,16,20,24],'75':[14,15,19,22],'80':[13,14,18,21],'85':[11,13,17,20],'90':[8,10,15,18] }, '2': { '65':[15,17,20,24],'70':[14,16,20,23],'75':[13,15,19,22],'80':[13,14,18,21],'85':[11,13,17,20],'90':[9,12,16,20] } }    
+    };
+
     let selectedMiniCogVersion = "1"; 
     let MEMORY_USER_DB = {}; 
     let currentRole = ""; 
+    let sppbGlobalTotal = 0;
 
     function initUserDatabase() {
         try {
@@ -632,8 +659,6 @@
         judgeAllPhy(); 
     }
 
-    let sppbGlobalTotal = 0; 
-
     function judgeAllPhy() {        
         const g = document.getElementById('b_gender').value, a = parseInt(document.getElementById('b_age').value);        
         const k = a >= 90 ? '90' : (a >= 85 ? '85' : (a >= 80 ? '80' : (a >= 75 ? '75' : (a >= 70 ? '70' : '65'))));        
@@ -651,7 +676,6 @@
 
         const balA = parseInt(document.getElementById('sppb_bal_a').value) || 0;
         const balC = parseInt(document.getElementById('sppb_bal_c').value) || 0;
-        // 修正處：半並排固定給予 1 分，移除與畫時鐘元件 ID 的衝突與計算破裂
         const balTotalScore = balA + 1 + balC;
 
         const gaitDistSelect = document.querySelector('input[name="sppb_gait_dist"]:checked');
@@ -854,7 +878,7 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },            
                 body: params.toString()        
             });        
-            alert("✅ 儲存成功！數據已完美同步至雲端。");        
+            alert("✅ 儲存成功！數據已同步至雲端。");        
             btn.innerHTML = "<i class='fa-solid fa-check-double mr-2'></i>已成功存檔";    
         } catch(e) {        
             alert("連線失敗，請檢查網路。");        
@@ -900,30 +924,6 @@
         }).join('');
     }
 
-    // ================= 🛠️ 導正後的問卷題庫 (消滅所有錯字) =================
-    const GDS_QUESTIONS = [
-        { q: "1. 基本上，您對您的生活滿意嗎？<br><span class='text-slate-400 text-xs'>(台：基本上，您對您的生活有滿意麼？)</span>", key: "否" },
-        { q: "2. 您是否減少附近的活動和興趣的事？<br><span class='text-slate-400 text-xs'>(台：您有減少真多的活動和趣味的事麼？)</span>", key: "是" },
-        { q: "3. 您是否覺得您的生活很空虛？<br><span class='text-slate-400 text-xs'>(台：您會感覺您的生活真實空虛麼？)</span>", key: "是" },
-        { q: "4. 您是否常常感到厭煩？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺真煩麼？)</span>", key: "是" },
-        { q: "5. 您是否大部份時間精神都很好？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間精神攏真好？)</span>", key: "否" },
-        { q: "6. 您是否會常常害怕將有不幸的事情發生在您身上了嗎？<br><span class='text-slate-400 text-xs'>(台：您會驚說您會遇著不幸的事情麼？)</span>", key: "是" },
-        { q: "7. 您是否大部份的時間都感到快樂？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間攏感覺快樂？)</span>", key: "否" },
-        { q: "8. 您是否常常感到無論做什麼事，都沒有用？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺不管做什麼事，攏無路用麼？)</span>", key: "是" },
-        { q: "9. 您是否比較喜歡待在家裡而較不喜歡外出及不喜歡做新的事？<br><span class='text-slate-400 text-xs'>(台：您會較愛待在厝裡，較不愛出外，亦不愛做未曾做過的事情麼？)</span>", key: "是" },
-        { q: "10. 您是否覺得現在有記憶力不好的困擾？<br><span class='text-slate-400 text-xs'>(台：您會感覺您比大部份的人有卡多記智不好的問題麼？)</span>", key: "是" },
-        { q: "11. 您是否覺得「現在還能活著」是很好的事？<br><span class='text-slate-400 text-xs'>(台：您會感覺「現在還能活著」真好？)</span>", key: "否" },
-        { q: "12. 您是否覺得您現在活得真沒有價值？<br><span class='text-slate-400 text-xs'>(台 trick：您會感覺您現在活得真無價值麼？)</span>", key: "是" },
-        { q: "13. 您是否覺得精力很充沛？<br><span class='text-slate-400 text-xs'>(台：您會感覺真有氣力麼？)</span>", key: "否" },
-        { q: "14. 您是否感覺您現在的情況是沒有希望的？<br><span class='text-slate-400 text-xs'>(台：您會感覺您的情形是沒什麼希望的麼？)</span>", key: "是" },
-        { q: "15. 您是否覺得大部份的人都比您更幸福？<br><span class='text-slate-400 text-xs'>(台：您會感覺大部份的人攏比您卡好命麼？)</span>", key: "是" }
-    ];
-
-    const PHY_NORMS = {        
-        chair: { '1': { '65':[13,15,18,22],'70':[12,14,17,21],'75':[11,12,16,19],'80':[10,12,15,17],'85':[8,10,13,16],'90':[6,8,11,14] }, '2': { '65':[11,14,16,20],'70':[10,13,15,19],'75':[9,12,14,18],'80':[8,11,13,16],'85':[3,9,12,15],'90':[0,6,11,14] } },        
-        arm: { '1': { '65':[16,17,21,25],'70':[15,16,20,24],'75':[14,15,19,22],'80':[13,14,18,21],'85':[11,13,17,20],'90':[8,10,15,18] }, '2': { '65':[15,17,20,24],'70':[14,16,20,23],'75':[13,15,19,22],'80':[13,14,18,21],'85':[11,13,17,20],'90':[9,12,16,20] } }    
-    };
-
     window.onload = function() {
         initUserDatabase(); 
         document.getElementById('b_date').value = new Date().toISOString().split('T')[0];
@@ -951,13 +951,5 @@
             if (e.key === 'Enter') checkLogin();
         });
     };
-
-    function showTab(id) {        
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));        
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));        
-        document.getElementById('tab-' + id).classList.add('active');        
-        document.getElementById('btn-' + id).classList.add('active');        
-        window.scrollTo(0,0);    
-    }
 </script>
 </body></html>
