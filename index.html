@@ -304,11 +304,11 @@
                 </div>            
                 
                 <div class="p-4 bg-slate-50 rounded-2xl border space-y-3">
-                    <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-scale-balanced text-blue-600"></i> 1. 平衡測試 (每種站法目標10秒)[cite: 1]</h3>
+                    <h3 class="text-xs font-black text-slate-700 flex items-center gap-1"><i class="fa-solid fa-scale-balanced text-blue-600"></i> 1. 平衡測試 (每種站法目標10秒)</h3>
                     <div class="space-y-3 text-xs font-bold">
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>A. 並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Side-by-side stand)</span></div>
-                            <div class="flex items-center gap-2"><select id="sppb_bal_a" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="1">保持 10 秒 (1分)[cite: 1]</option><option value="0">少於 10 秒 (0分)[cite: 1]</option></select></div>
+                            <div class="flex items-center gap-2"><select id="sppb_bal_a" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="1">保持 10 秒 (1分)</option><option value="0">少於 10 秒 (0分)</option></select></div>
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>B. 半並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Semi-tandem stand)</span></div>
@@ -318,7 +318,7 @@
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>C. 直線站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Tandem stand)</span></div>
-                            <div class="flex items-center gap-2"><select id="sppb_bal_c" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="2">保持 10 秒 (2分)[cite: 1]</option><option value="1">保持 3 ~ 9.99 秒 (1分)[cite: 1]</option><option value="0">保持 &lt; 3 秒 (0分)[cite: 1]</option></select></div>
+                            <div class="flex items-center gap-2"><select id="sppb_bal_c" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="2">保持 10 秒 (2分)</option><option value="1">保持 3 ~ 9.99 秒 (1分)</option><option value="0">保持 &lt; 3 秒 (0分)</option></select></div>
                         </div>
                     </div>
                 </div>
@@ -505,7 +505,6 @@
         "6": ["女兒", "天堂", "高山"]
     };
 
-    // 🎯 百分之百導正完畢的 GDS-15 標準資料庫（無中文錯字阻斷）
     const GDS_QUESTIONS = [
         { q: "1. 基本上，您對您的生活滿意嗎？<br><span class='text-slate-400 text-xs'>(台：基本上，您對您的生活有滿意麼？)</span>", key: "否" },
         { q: "2. 您是否減少附近的活動和興趣的事？<br><span class='text-slate-400 text-xs'>(台：您有減少真多的活動和趣味的事麼？)</span>", key: "是" },
