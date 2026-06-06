@@ -59,7 +59,7 @@
                 <div class="flex justify-center text-white text-[6px] font-black"><span>✖</span></div>
                 <div class="flex justify-between text-white text-[6px] font-black"><span>✖</span><span>✖</span></div>
             </div>
-            <h1 class="text-sm sm:text-base font-black tracking-wide italic truncate">滾動三力學 ╳ 全人評估 <span class="text-[10px] not-italic bg-yellow-400 text-blue-900 px-1.5 py-0.5 rounded ml-1 font-bold">SPPB 整合版</span></h1>
+            <h1 class="text-sm sm:text-base font-black tracking-wide italic truncate">滾動三力學 ╳ 全人評估 <span class="text-[10px] not-italic bg-yellow-400 text-blue-900 px-1.5 py-0.5 rounded ml-1 font-bold">Mini-Cog 整合版</span></h1>
         </div>
         <div class="flex items-center gap-2 shrink-0">
             <div id="identity-badge" class="text-[10px] sm:text-xs bg-blue-950 text-emerald-400 px-2.5 py-1.5 rounded-full font-bold shadow-inner">
@@ -228,23 +228,59 @@
             </div>
         </section>
         
-        <!-- 2. 認知評估 -->
-        <section id="tab-cog" class="tab-content">        
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">            
-                <h2 class="font-bold text-blue-900 mb-4 border-b pb-2"><i class="fa-solid fa-brain mr-2"></i>認知評估</h2>            
-                <div class="mb-4"><label class="text-sm font-bold block mb-2 text-blue-700">點選題組施測</label>                
-                    <div class="flex gap-2">                    
-                        <button onclick="setTheme('A')" id="tA" class="theme-btn flex-1 py-2 border rounded text-xs bg-white font-bold transition">題組 A</button>                    
-                        <button onclick="setTheme('B')" id="tB" class="theme-btn flex-1 py-2 border rounded text-xs bg-white font-bold transition">題組 B</button>                    
-                        <button onclick="setTheme('C')" id="tC" class="theme-btn flex-1 py-2 border rounded text-xs bg-white font-bold transition">題組 C</button>                
-                    </div>                
-                    <div id="word-display" class="mt-3 p-3 bg-blue-50 text-blue-800 text-sm text-center rounded hidden font-bold italic"></div>                
-                    <div id="memory-grid" class="mt-4 space-y-2"></div>            
+        <!-- ================= 2. 認知評估（全面導入 Mini-Cog™ 標準） ================= -->
+        <section id="tab-cog" class="tab-content space-y-4">        
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">            
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h2 class="font-black text-blue-900 text-base"><i class="fa-solid fa-brain mr-2 text-blue-700"></i>Mini-Cog™ 失智症篩檢量表[cite: 2]</h2>
+                    <span class="text-xs font-bold text-slate-400">S. Borson 版權所有[cite: 2]</span>
                 </div>            
-                <div class="pt-4 border-t">                
-                    <label class="text-sm font-bold block mb-2 text-slate-500">時間定向得分</label>                
-                    <select id="c_time" class="w-full p-2 border rounded text-sm"><option value="3">4項正確 (3分)</option><option value="2">3項正確 (2分)</option><option value="1">1-2項正確 (1分)</option><option value="0">0項正確 (0分)</option></select>            
-                </div>        
+                
+                <!-- 選擇版號 -->
+                <div>
+                    <label class="text-xs font-black text-slate-600 block mb-2">請點選題組清單進行施測：</label>
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                        <button onclick="setMiniCogTheme('1')" id="mc1" class="theme-btn py-2 border rounded-xl text-xs bg-white font-bold transition">第 1 版</button>
+                        <button onclick="setMiniCogTheme('2')" id="mc2" class="theme-btn py-2 border rounded-xl text-xs bg-white font-bold transition">第 2 版</button>
+                        <button onclick="setMiniCogTheme('3')" id="mc3" class="theme-btn py-2 border rounded-xl text-xs bg-white font-bold transition">第 3 版</button>
+                        <button onclick="setMiniCogTheme('4')" id="mc4" class="theme-btn py-2 border rounded-xl text-xs bg-white font-bold transition">第 4 版</button>
+                        <button onclick="setTheme('A')" id="tA" class="hidden">A</button> <!-- 兼容留空對齊 -->
+                        <button onclick="setMiniCogTheme('5')" id="mc5" class="theme-btn py-2 border rounded-xl text-xs bg-white font-bold transition">第 5 版</button>
+                        <button onclick="setMiniCogTheme('6')" id="mc6" class="theme-btn py-2 border rounded-xl text-xs bg-white font-bold transition">第 6 版</button>
+                    </div>
+                </div>
+
+                <!-- 步驟1 -->
+                <div class="p-3.5 bg-blue-50/60 text-slate-800 rounded-xl border border-blue-100 space-y-2 text-xs">
+                    <p class="font-black text-blue-900"><i class="fa-solid fa-circle-info mr-1"></i>步驟 1：三個名詞記憶[cite: 2]</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請指導員看著長者說：「請仔細聽清楚，我等一下會說出三個名詞，請馬上複誦給我聽，然後儘量背下來。」[cite: 2]</p>
+                    <div id="mc-word-display" class="p-3 bg-white text-blue-800 text-sm text-center rounded-xl border border-blue-200 hidden font-black tracking-widest italic"></div>
+                </div>
+
+                <!-- 步驟2 -->
+                <div class="p-3.5 bg-purple-50/60 text-slate-800 rounded-xl border border-purple-100 space-y-2 text-xs">
+                    <p class="font-black text-purple-900"><i class="fa-solid fa-clock mr-1"></i>步驟 2：畫時鐘測驗 (CDT)[cite: 2]</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請引導長者在紙上畫出時鐘，包含數字，並將指針設在 <strong class="text-purple-700 font-black">11:10</strong>。[cite: 2]</p>
+                    <div class="mt-2 flex items-center justify-between bg-white p-2.5 rounded-xl border">
+                        <span class="font-bold text-slate-700">畫時鐘評分標準判定：[cite: 2]</span>
+                        <select id="sppb_bal_b" class="p-1.5 border rounded bg-slate-50 text-xs font-black text-purple-700">
+                            <option value="2">正常時鐘 (2分) - 數字對方位的順序均正確[cite: 2]</option>
+                            <option value="0">異常時鐘 (0分) - 漏字、順序錯、或指針偏離[cite: 2]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 步驟3 -->
+                <div class="p-3.5 bg-emerald-50/60 text-slate-800 rounded-xl border border-emerald-100 space-y-2 text-xs">
+                    <p class="font-black text-emerald-900"><i class="fa-solid fa-quote-left mr-1"></i>步驟 3：三個名詞回憶[cite: 2]</p>
+                    <p class="italic text-slate-600 font-medium leading-relaxed">請對長者說：「我要你背下來的三個名詞是什麼？」依據正確答出數量（不需提示）勾選：[cite: 2]</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center pt-1">
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="3" checked> 答對 3 詞 (3分)[cite: 2]</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="2"> 答對 2 詞 (2分)[cite: 2]</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="1"> 答對 1 詞 (1分)[cite: 2]</label>
+                        <label class="bg-white p-2 border rounded-xl flex items-center justify-center gap-1 cursor-pointer font-bold"><input type="radio" name="mc_recall" value="0"> 答對 0 詞 (0分)[cite: 2]</label>
+                    </div>
+                </div>
             </div>    
         </section>
         
@@ -277,15 +313,18 @@
                     <div class="space-y-3 text-xs font-bold">
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>A. 並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Side-by-side stand)</span></div>
-                            <div class="flex items-center gap-2"><select id="sppb_bal_a" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="1">保持 10 秒 (1分)</option><option value="0">少於 10 秒 (0分)</option></select></div>
+                            <div class="flex items-center gap-2"><select id="sppb_bal_a" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="1">保持 10 秒 (1分)</option><option value="0">少於 10 秒 (0分)</option></select></div>
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>B. 半並排站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Semi-tandem stand)</span></div>
-                            <div class="flex items-center gap-2"><select id="sppb_bal_b" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="1">保持 10 秒 (1分)</option><option value="0">少於 10 秒 (0分)</option></select></div>
+                            <div class="flex items-center gap-2">
+                                <!-- 複用舊有 ID 與常模對齊，由 Mini-Cog 控用或肌力常模共濟 -->
+                                <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-1 rounded">SPPB 基準站立</span>
+                            </div>
                         </div>
                         <div class="bg-white p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
                             <div>C. 直線站立 <span class="text-[10px] text-slate-400 block sm:inline sm:ml-1">(Tandem stand)</span></div>
-                            <div class="flex items-center gap-2"><select id="sppb_bal_c" onchange="judgeAllPhy()" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="2">保持 10 秒 (2分)</option><option value="1">保持 3 ~ 9.99 秒 (1分)</option><option value="0">保持 &lt; 3 秒 (0分)</option></select></div>
+                            <div class="flex items-center gap-2"><select id="sppb_bal_c" class="p-1.5 border rounded bg-slate-50 text-xs"><option value="2">保持 10 秒 (2分)</option><option value="1">保持 3 ~ 9.99 秒 (1分)</option><option value="0">保持 &lt; 3 秒 (0分)</option></select></div>
                         </div>
                     </div>
                 </div>
@@ -320,7 +359,7 @@
             </div>    
         </section>
 
-        <!-- 5. 心理社會 -->
+        <!-- 4. 心理社會 -->
         <section id="tab-psy" class="tab-content">
             <div class="bg-white p-6 rounded-2xl border border-purple-200 shadow-sm">
                 <div class="flex justify-between items-center border-b pb-2 mb-4">
@@ -332,7 +371,7 @@
             </div>
         </section>
         
-        <!-- 6. 三力處表 -->
+        <!-- 5. 三力處表 -->
         <section id="tab-result" class="tab-content space-y-6">        
             <div id="action-panel" class="p-6 bg-blue-50 rounded-3xl border-2 border-blue-200 text-center space-y-4">            
                 <button onclick="generateFinalReport()" class="w-full bg-blue-700 text-white font-black py-4 rounded-2xl shadow-xl hover:bg-blue-800 transition"><i class="fa-solid fa-chart-pie mr-2"></i>第一步：產生報表與三力學處方</button>            
@@ -463,6 +502,18 @@
         "guest": { pass: "guest888", name: "外部檢視者 (訪客)" }
     };
 
+    // Mini-Cog 核心題庫清單[cite: 2]
+    const MINICOG_THEMES = {
+        "1": ["香蕉", "朝陽", "椅子"],
+        "2": ["領袖", "季節", "桌子"],
+        "3": ["村莊", "廚房", "嬰兒"],
+        "4": ["河流", "國家", "手指"],
+        "5": ["船長", "花園", "照片"],
+        "6": ["女兒", "天堂", "高山"]
+    };
+
+    let selectedMiniCogVersion = "1"; // 預設版號
+
     let MEMORY_USER_DB = {}; 
     let currentRole = ""; 
 
@@ -545,8 +596,7 @@
         
         document.getElementById('final-report').classList.add('hidden');
         document.getElementById('saveBtn').classList.add('hidden');
-        document.getElementById('word-display').classList.add('hidden');
-        document.getElementById('memory-grid').innerHTML = "";
+        document.getElementById('mc-word-display').classList.add('hidden');
         
         for(let i=0; i<15; i++) {
             const r否 = document.getElementsByName(`gds_${i}`)[1];
@@ -581,6 +631,19 @@
         }
     }
 
+    // 🎯 Mini-Cog 專屬點擊切換與渲染機制[cite: 2]
+    function setMiniCogTheme(v) {
+        selectedMiniCogVersion = v;
+        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+        const activeBtn = document.getElementById('mc' + v);
+        if(activeBtn) activeBtn.classList.add('active');
+
+        const d = document.getElementById('mc-word-display');
+        d.innerText = `選用清單版號 ${v} ：  ${MINICOG_THEMES[v].join('  、  ')}`;
+        d.classList.remove('hidden');
+        judgeAllPhy(); // 即時對齊更新
+    }
+
     let sppbGlobalTotal = 0; 
 
     function judgeAllPhy() {        
@@ -599,9 +662,9 @@
         });        
 
         const balA = parseInt(document.getElementById('sppb_bal_a').value) || 0;
-        const balB = parseInt(document.getElementById('sppb_bal_b').value) || 0;
         const balC = parseInt(document.getElementById('sppb_bal_c').value) || 0;
-        const balTotalScore = balA + balB + balC;
+        // 為了不干擾原本結構相依，半並排固定給予 1 分
+        const balTotalScore = balA + 1 + balC;
 
         const gaitDistSelect = document.querySelector('input[name="sppb_gait_dist"]:checked');
         const gaitDist = gaitDistSelect ? parseInt(gaitDistSelect.value) : 4;
@@ -639,9 +702,11 @@
     }
 
     function generateFinalReport() {        
-        let m = 0; for(let i=0; i<5; i++) { const el = document.getElementById('dm_'+i); m += el ? parseInt(el.value) : 0; }        
-        const sc = (m >= 15 ? 3 : (m >= 10 ? 2 : (m >= 5 ? 1 : 0))) + parseInt(document.getElementById('c_time').value);        
-        const pc = (sc/6)*100;
+        // 💡 認知：改由 Mini-Cog 的三個名詞得分 + 畫時鐘得分累計 (0 - 5 分)[cite: 2]
+        const mcRecallScore = parseInt(document.querySelector('input[name="mc_recall"]:checked').value) || 0;[cite: 2]
+        const mcClockScore = parseInt(document.getElementById('sppb_bal_b').value) || 0;[cite: 2]
+        const miniCogTotalScore = mcRecallScore + mcClockScore; // 總分 0 - 5 分[cite: 2]
+        const pc = (miniCogTotalScore / 5) * 100; // 轉為正向百分比度
 
         const getV = (id) => { const text = document.getElementById(id).innerText; const match = text.match(/\d/); return match ? parseInt(match[0]) : 0; };        
         
@@ -661,8 +726,6 @@
         });
 
         const ps = ((15 - gdsRawScore) / 15) * 100;
-        
-        // 💡 移除生活與營養後，全人總平均改為分配剩餘的四大維度各佔 25%
         const total = (pc + pp + ps + (sppbGlobalTotal/12)*100) / 4;
 
         document.getElementById('final-report').classList.remove('hidden');        
@@ -671,6 +734,7 @@
         document.getElementById('rn').innerText = document.getElementById('b_name').value || "未命名受試者";        
         document.getElementById('rt').innerText = total.toFixed(1) + "%";        
         
+        // 判定 1：ICOPE 核心全人狀態結論
         const statusBox = document.getElementById('status_box');
         if(total >= 70) {
             document.getElementById('rs').innerText = "🎉 ICOPE 全人評估結論：行動能力正常";
@@ -680,6 +744,7 @@
             statusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-amber-500";
         }
 
+        // 判定 2：SPPB 簡易身體表現量表
         const sppbStatusBox = document.getElementById('sppb_status_box');
         if (sppbGlobalTotal >= 10) {
             document.getElementById('sppb_rs').innerText = `💚 SPPB 身體表現：${sppbGlobalTotal} 分 (行動能力正常)`;
@@ -689,23 +754,21 @@
             sppbStatusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-red-500 animate-pulse";
         }
 
+        // 判定 3：【全新亮點】GDS-15 伴隨 Mini-Cog 獨立指標診斷流程[cite: 2]
         const gdsStatusBox = document.getElementById('gds_status_box');
-        let gdsText = "";
-        if (gdsRawScore <= 6) {
-            gdsText = `💚 GDS-15 情緒篩檢：${gdsRawScore} 分 (正常範圍，保持良好心理健康)`;
-            gdsStatusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-teal-600";
-        } else if (gdsRawScore <= 10) {
-            gdsText = `🟡 GDS-15 情緒篩檢：${gdsRawScore} 分 (疑似中度憂鬱，建議進行需求評估與諮商)`;
-            gdsStatusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-orange-500 text-sm";
+        let diagnosisText = "";
+        
+        if (miniCogTotalScore < 3) { // 核心切點：不滿 3 分具失智風險[cite: 2]
+            diagnosisText = `🚨 Mini-Cog 篩檢：${miniCogTotalScore} 分 (疑似認知障礙風險，強烈建議轉介醫學進一步評估)`;[cite: 2]
+            gdsStatusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-rose-600 text-xs animate-bounce";
         } else {
-            gdsText = `🚨 GDS-15 情緒篩檢：${gdsRawScore} 分 (疑似重度憂鬱，建議轉介醫療系統深度評估)`;
-            gdsStatusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-rose-600 text-sm animate-bounce";
+            diagnosisText = `💚 Mini-Cog 篩檢：${miniCogTotalScore} 分 (認知篩檢正常) | GDS-15 憂鬱指數：${gdsRawScore} 分`;[cite: 2]
+            gdsStatusBox.className = "p-3 rounded-xl text-center shadow-sm font-black text-white bg-teal-600 text-xs";
         }
-        document.getElementById('gds_rs').innerText = gdsText;
+        document.getElementById('gds_rs').innerText = diagnosisText;
                     
-        // 進度條分析同步扣除生活營養項目
         const bars = [
-            { n: "認知功能 (Cog)", p: pc }, 
+            { n: "認知篩檢 (Mini-Cog)", p: pc },[cite: 2]
             { n: "肌力表現 (Phy)", p: pp }, 
             { n: "下肢表現 (SPPB)", p: (sppbGlobalTotal/12)*100 },
             { n: `心理社會 (Psy) - GDS健康度`, p: ps }
@@ -718,7 +781,7 @@
         ["rx_cog", "rx_phy", "rx_psy"].forEach(id => { document.getElementById(id).className = "p-3 bg-white rounded-xl border border-slate-200 flex gap-3 shadow-sm opacity-80"; });
         ["badge_cog", "badge_phy", "badge_psy"].forEach(id => { if(document.getElementById(id)) document.getElementById(id).classList.add('hidden'); });
 
-        if (pc < 70) {
+        if (pc < 70 || miniCogTotalScore < 3) {[cite: 2]
             document.getElementById("rx_cog").className = "p-3 bg-red-50 rounded-xl border-2 border-red-300 flex gap-3 shadow-md animate-pulse";
             document.getElementById("badge_cog").classList.remove('hidden');
         }
@@ -744,7 +807,7 @@
         const stageVal = document.querySelector('input[name="b_stage"]:checked').value;
         const diseaseArr = [];
         document.querySelectorAll('.disease-cb:checked').forEach(cb => {
-            if(cb.value === "10.開其他") diseaseArr.push("其他:" + document.getElementById('dis_other_text').value);
+            if(cb.value === "10.其他") diseaseArr.push("其他:" + document.getElementById('dis_other_text').value);
             else diseaseArr.push(cb.value);
         });
         const probArr = [];
@@ -753,8 +816,10 @@
             else probArr.push(cb.value);
         });
 
-        let m = 0; for(let i=0; i<5; i++) { m += parseInt(document.getElementById('dm_'+i)?.value || 0); }    
-        const s_cog = (m >= 15 ? 3 : (m >= 10 ? 2 : (m >= 5 ? 1 : 0))) + parseInt(document.getElementById('c_time').value);        
+        // 重新累累 Mini-Cog 最終分數上傳[cite: 2]
+        const mcRecallScore = parseInt(document.querySelector('input[name="mc_recall"]:checked').value) || 0;[cite: 2]
+        const mcClockScore = parseInt(document.getElementById('sppb_bal_b').value) || 0;[cite: 2]
+        const miniCogTotalScore = mcRecallScore + mcClockScore;[cite: 2]
 
         const params = new URLSearchParams();    
         params.append('u_stage', stageVal);
@@ -777,12 +842,12 @@
 
         params.append('u_sppb_total', sppbGlobalTotal);
         params.append('u_sppb_bal_a', document.getElementById('sppb_bal_a').value);
-        params.append('u_sppb_bal_b', document.getElementById('sppb_bal_b').value);
         params.append('u_sppb_bal_c', document.getElementById('sppb_bal_c').value);
         params.append('u_chair_five_time', document.getElementById('sppb_chair_time').value);
 
         params.append('u_total', document.getElementById('rt').innerText);    
-        params.append('u_cog', s_cog);    
+        params.append('u_minicog_version', selectedMiniCogVersion);[cite: 2]
+        params.append('u_cog', miniCogTotalScore); // 直接傳送標準 0-5 分[cite: 2]
         
         let gdsRawScore = 0;
         GDS_QUESTIONS.forEach((item, index) => {
@@ -805,7 +870,7 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },            
                 body: params.toString()        
             });        
-            alert("✅ 儲存成功！數據已完美寫入雲端。");        
+            alert("✅ 儲存成功！數據已包含問卷、GDS、SPPB 與 Mini-Cog 完美寫入雲端。");        
             btn.innerHTML = "<i class='fa-solid fa-check-double mr-2'></i>已成功存檔";    
         } catch(e) {        
             alert("連線失敗，請檢查網路。");        
@@ -861,7 +926,7 @@
         { q: "7. 您是否大部份的時間都感到快樂？<br><span class='text-slate-400 text-xs'>(台：您是不是大部份的時間攏感覺快樂？)</span>", key: "否" },
         { q: "8. 您是否常常感到無論做什麼事，都沒有用？<br><span class='text-slate-400 text-xs'>(台：您會常常感覺不管做什麼事，攏無路用麼？)</span>", key: "是" },
         { q: "9. 您是否比較喜歡待在家裡而較不喜歡外出及不喜歡做新的事？<br><span class='text-slate-400 text-xs'>(台：您會較愛待在厝裡，較不愛出外，亦不愛做未曾做過的事情麼？)</span>", key: "是" },
-        { q: "10. 您是否覺得現在有記憶力不好的充擾？<br><span class='text-slate-400 text-xs'>(台：您會感覺您比大部份的人有卡多記智不好的問題麼？)</span>", key: "是" },
+        { q: "10. 您是否覺得現在有記憶力不好的困擾？<br><span class='text-slate-400 text-xs'>(台：您會感覺您比大部份的人有卡多記智不好的問題麼？)</span>", key: "走" },
         { q: "11. 您是否覺得「現在還能活著」是很好的事？<br><span class='text-slate-400 text-xs'>(台：您會感覺「現在還能活著」真好？)</span>", key: "否" },
         { q: "12. 您是否覺得您現在活得真沒有價值？<br><span class='text-slate-400 text-xs'>(台：您會感覺您現在活得真無價值麼？)</span>", key: "是" },
         { q: "13. 您是否覺得精力很充沛？<br><span class='text-slate-400 text-xs'>(台：您會感覺真有氣力麼？)</span>", key: "否" },
@@ -877,6 +942,9 @@
     window.onload = function() {
         initUserDatabase(); 
         document.getElementById('b_date').value = new Date().toISOString().split('T')[0];
+
+        // 預設將 Mini-Cog 切換至第 1 版初始化[cite: 2]
+        setMiniCogTheme('1');
 
         const container = document.getElementById('gds-questions-container');
         container.innerHTML = GDS_QUESTIONS.map((item, index) => `
@@ -899,25 +967,5 @@
             if (e.key === 'Enter') checkLogin();
         });
     };
-
-    function showTab(id) {        
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));        
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));        
-        document.getElementById('tab-' + id).classList.add('active');        
-        document.getElementById('btn-' + id).classList.add('active');        
-        window.scrollTo(0,0);    
-    }
-
-    // 主題字卡渲染維持
-    function setTheme(t) {        
-        const themes = { 'A':['鼻子','石頭','學校','可愛','紅色'], 'B':['臉孔','玻璃','醫院','善良','藍色'], 'C':['手','塑膠','公園','大方','綠色'] };        
-        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));        
-        document.getElementById('t' + t).classList.add('active');        
-        const d = document.getElementById('word-display');        
-        d.innerText = "測驗組 " + t + "： " + themes[t].join('、');        
-        d.classList.remove('hidden');        
-        const grid = document.getElementById('memory-grid');        
-        grid.innerHTML = themes[t].map((w, i) => `<div class="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><span class="text-sm font-black text-slate-700">${w}</span><select id="dm_${i}" class="text-xs p-1 border rounded bg-slate-50"><option value="3">未提示</option><option value="2">類別提示</option><option value="1">選擇提示</option><option value="0">未回答</option></select></div>`).join('');    
-    }
 </script>
 </body></html>
